@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Рита Хакимова](https://up.htmlacademy.ru/javascript/30/user/2104439).
-* Наставник: `Неизвестно`.
+* Наставник: [Анастасия Гущина](https://htmlacademy.ru/profile/vanastasiya).
 
 ---
 
