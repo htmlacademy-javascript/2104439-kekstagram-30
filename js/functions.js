@@ -1,35 +1,17 @@
 //Проверка длины строки
 const isStringLengthValid = (text, count) => text.length <= count;
 
-console.log(isStringLengthValid('проверяемая строка', 20));
-console.log(isStringLengthValid('проверяемая строка', 18));
-console.log(isStringLengthValid('проверяемая строка', 10));
+isStringLengthValid('проверяемая строка', 20);
 
 //Палиндром
 
-//убрать с помощью метода replaceAll() все пробелы,
-//  привести строку к верхнему(метод toUpperCase()) или к нижнему(метод toLowerCase()) регистру,
-//    записать полученную строку в новую переменную.
-function stringPalindrome(stringNormal) {
-  stringNormal = stringNormal.toLowerCase().replaceAll();
+function checkStringPalindrome(string) {
+  const stringNormal = string.toLowerCase().replaceAll(' ', '');
+  let stringReverse = '';
 
-  //Создать новую пустую строку и сохранить её в ещё одну переменную.
-  let stringReverze = '';
-
-  //Создать цикл for, переменная - счётчик которого отсчитывает порядковые номера(индексы) символов в «нормализованной» строке с конца к началу, то есть:
-
-  //изначально счётчик равен индексу последнего символа(он на 1 меньше длины строки),
-  //  цикл останавливается при достижении начала строки(нулевого индекса),
-  //    на каждой итерации счётчик уменьшается на 1.
-  //В теле цикла на каждой итерации получать очередной символ «нормализованной» строки(с помощью квадратных скобок или метода at()).
-  for (let i = stringNormal - 1; i >= 0; i--) {
-    //С помощью оператора += дозаписать этот символ в созданную на втором шаге строку
-    stringReverze += stringNormal[i];
+  for (let i = stringNormal.length - 1; i >= 0; i--) {
+    stringReverse += stringNormal[i];
   }
-
-  //После того, как цикл отработает, полученную перевёрнутую строку сравнить(===) с «нормализованной».
-
-  //Вернуть результат этого сравнения.
-  return stringNormal === stringReverze;
+  return stringNormal === stringReverse;
 }
-console.log(stringPalindrome('Лёша на полке клопа нашёл '));
+checkStringPalindrome('Лёша на полке клопа нашёл ');
