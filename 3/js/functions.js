@@ -1,35 +1,54 @@
 //Проверка длины строки
 const isStringLengthValid = (text, count) => text.length <= count;
 
-console.log(isStringLengthValid('проверяемая строка', 20));
-console.log(isStringLengthValid('проверяемая строка', 18));
-console.log(isStringLengthValid('проверяемая строка', 10));
+isStringLengthValid('проверяемая строка', 20);
 
-//Палиндром
+//Палиндром с отражением строки
 
-//убрать с помощью метода replaceAll() все пробелы,
-//  привести строку к верхнему(метод toUpperCase()) или к нижнему(метод toLowerCase()) регистру,
-//    записать полученную строку в новую переменную.
-function stringPalindrome(stringNormal) {
-  stringNormal = stringNormal.toLowerCase().replaceAll();
-
-  //Создать новую пустую строку и сохранить её в ещё одну переменную.
-  let stringReverze = '';
-
-  //Создать цикл for, переменная - счётчик которого отсчитывает порядковые номера(индексы) символов в «нормализованной» строке с конца к началу, то есть:
-
-  //изначально счётчик равен индексу последнего символа(он на 1 меньше длины строки),
-  //  цикл останавливается при достижении начала строки(нулевого индекса),
-  //    на каждой итерации счётчик уменьшается на 1.
-  //В теле цикла на каждой итерации получать очередной символ «нормализованной» строки(с помощью квадратных скобок или метода at()).
-  for (let i = stringNormal - 1; i >= 0; i--) {
-    //С помощью оператора += дозаписать этот символ в созданную на втором шаге строку
-    stringReverze += stringNormal[i];
+function checkStringPalindrome(string) {
+  const stringNormal = string.toLowerCase().replaceAll(' ', '');
+  let stringReverse = '';
+  for (let i = stringNormal.length - 1; i >= 0; i--) {
+    stringReverse += stringNormal[i];
   }
-
-  //После того, как цикл отработает, полученную перевёрнутую строку сравнить(===) с «нормализованной».
-
-  //Вернуть результат этого сравнения.
-  return stringNormal === stringReverze;
+  return stringNormal === stringReverse;
 }
-console.log(stringPalindrome('Лёша на полке клопа нашёл '));
+
+checkStringPalindrome('Лёша на полке клопа нашёл ');
+
+//Палиндром с делением строки на 2 части
+
+function isPalindrome(rawString) {
+  const string = rawString.replaceAll(' ', '').toLowerCase();
+  for (let i = 0; i < string.length / 2; i++) {
+    if (string.at(i) !== string.at(-i - 1)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+isPalindrome('топот');
+isPalindrome('Лёша на полке клопа нашёл ');
+isPalindrome('Кекс');
+
+//Функция, возвращающая цифры из строки
+function returnsNumbers(baseString) {
+  const string = baseString.toString();
+  let result = '';
+  for (let i = 0; i < string.length; i++) {
+    if (!Number.isNaN(parseInt(string[i], 10))) {
+      result += string[i];
+    }
+  }
+  return parseInt(result, 10);
+}
+
+returnsNumbers('2023 год'); // 2023
+returnsNumbers('ECMAScript 2022'); // 2022
+returnsNumbers('1 кефир, 0.5 батона'); // 105
+returnsNumbers('агент 007'); // 7
+returnsNumbers('а я томат'); // NaN
+returnsNumbers(2023); // 2023
+returnsNumbers(-1); // 1
+returnsNumbers(1.5); // 15
