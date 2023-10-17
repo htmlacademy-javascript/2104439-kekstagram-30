@@ -20,7 +20,7 @@ const COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const DESCRIPTION = [
+const DESCRIPTIONS = [
   'Хорошее настроение',
   'Красиво без фильтов',
   'Фотосессия - всегда хорошая идея',
@@ -34,6 +34,29 @@ const DESCRIPTION = [
 
 const SIMILAR_IMAGE_COUNT = 25;
 
+const CommentsCount = {
+  MIN: 0,
+  MAX: 30
+};
+
+const LikesCount = {
+  MIN: 15,
+  MAX: 200
+};
+
+const AvatarCount = {
+  MIN: 1,
+  MAX: 6
+};
+
+const generateId = () => {
+  let lastId = 1;
+
+  return () => lastId++;
+};
+
+const getCommentId = generateId();
+
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -43,34 +66,27 @@ const getRandomInteger = (a, b) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-const photos = [];
+const generateComment = () => ({
+  id: getCommentId(),
+  avatar: `img/avatar-${getRandomInteger(AvatarCount.MIN, AvatarCount.MAX)}.svg`,
+  message: getRandomArrayElement(COMMENTS),
+  name: getRandomArrayElement(NAMES),
+});
 
 const addImages = () => {
-  for (let i = 0; i < SIMILAR_IMAGE_COUNT; i++) {
+  const photos = [];
+  for (let i = 1; i <= SIMILAR_IMAGE_COUNT; i++) {
     photos.push({
-      // число от 1 до 25
       id: i,
-      // строка — адрес картинки вида photos/{{i}}.jpg, где {{i}} — это число от 1 до 25. Адреса картинок не должны повторяться.
-      url: 'photos/' + { i } + '.jpg',
-      // число — количество лайков, поставленных фотографии. Случайное число от 15 до 200
-      likes: getRandomInteger(15, 200),
-      //кол-во от 0 до 30 (не поняла как сделать)
-      comments: {
-        // любое число. Идентификаторы не должны повторяться
-        id: getRandomInteger(0, 1000),
-        //это строка, значение которой формируется по правилу img/avatar-{{случайное число от 1 до 6}}.svg. Аватарки подготовлены в директории img
-        avatar: 'img/avatar - ' + { getRandomInteger(1, 6) } + '.svg',
-        // одно или два случайных предложения из представленных
-        message: getRandomArrayElement(COMMENTS), //как сделать или два?
-        //Подставляйте случайное имя в поле name
-        name: getRandomArrayElement(NAMES),
-      },
-      //строка — описание фотографии. Описание придумайте самостоятельно.
-      description: getRandomArrayElement(DESCRIPTION),
+      url: `photos/${i}.jpg`,
+      likes: getRandomInteger(LikesCount.MIN, LikesCount.MAX),
+      comments: Array.from({ length: getRandomInteger(CommentsCount.MIN, CommentsCount.MAX) }, generateComment),
+      description: getRandomArrayElement(DESCRIPTIONS),
     });
   }
+  return photos;
 };
 
 const similarImages = Array.from({ length: SIMILAR_IMAGE_COUNT }, addImages);
 
-console.log(similarImages);
+addImages();
