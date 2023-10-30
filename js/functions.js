@@ -33,6 +33,7 @@ isPalindrome('Лёша на полке клопа нашёл ');
 isPalindrome('Кекс');
 
 //Функция, возвращающая цифры из строки
+
 function returnsNumbers(baseString) {
   const string = baseString.toString();
   let result = '';
@@ -52,3 +53,26 @@ returnsNumbers('а я томат'); // NaN
 returnsNumbers(2023); // 2023
 returnsNumbers(-1); // 1
 returnsNumbers(1.5); // 15
+
+//Функция делу время
+
+function getMinutes(data) {
+  const getTime = data.split(':'); //делим двоеточием
+  const convertHoursToMinutes = (parseInt(getTime[0], 10)) * 60; //превращаем часы в минуты
+  const minutes = parseInt(getTime[1], 10); //минуты
+  return convertHoursToMinutes + minutes; //складываем
+}
+
+function meetNotWorkingDay(startWork, finishWork, meet, meetDuration) {
+  const startWorkMinutes = getMinutes(startWork);
+  const finishWorkMinutes = getMinutes(finishWork);
+  const startMeetMinutes = getMinutes(meet);
+  const finishMeet = startMeetMinutes + meetDuration;
+  return startMeetMinutes >= startWorkMinutes && finishMeet <= finishWorkMinutes;
+}
+
+meetNotWorkingDay('08:00', '17:30', '14:00', 90); // true
+meetNotWorkingDay('8:0', '10:0', '8:0', 120); // true
+meetNotWorkingDay('08:00', '14:30', '14:00', 90); // false
+meetNotWorkingDay('14:00', '17:30', '08:0', 90); // false
+meetNotWorkingDay('8:00', '17:30', '08:00', 900); // false

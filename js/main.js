@@ -1,4 +1,3 @@
-import './util.js';
-import { addImages } from './data.js';
+import { createProfile } from './data.js';
 
-addImages();
+createProfile();
