@@ -1,3 +1,5 @@
 import { createProfile } from './data.js';
+import { renderPictures } from './pictures.js';
 
-createProfile();
+const pictures = createProfile();
+renderPictures(pictures);
