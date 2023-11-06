@@ -1,38 +1,38 @@
+//Задача: Отобразить фотографии других пользователей.
 //Ищем элемент picture по id в шаблонах, + обращаемся к контенту
-const pictureTemplate = document.querySelector('#picture')
+const photoTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture'); //класс у тега a в template
 
-//ищем Контейнер для изображений от других пользователей
-const container = document.querySelector('.pictures');
-
 //Функция, создающая одну превью(миниатюру) для фотографии
-const createPicture = ({ url, description, likes, comments }) => {
+const createPhoto = ({ url, description, likes, comments, id }) => {
+
   //добавляем данные в шаблон
   //клонируем шаблон для одной миниатюры
-  const picture = pictureTemplate.cloneNode(true);
+  const photo = photoTemplate.cloneNode(true);
 
   //наполняем одну миниатюру
-  const pictureImage = picture.querySelector('.picture__img');
-  pictureImage.src = url;
-  pictureImage.alt = description;
-  picture.querySelector('.picture__comments').textContent = comments.length;
-  picture.querySelector('.picture__likes').textContent = likes;
+  const photoImage = photo.querySelector('.picture__img');
+  photoImage.src = url;
+  photoImage.alt = description;
+  photo.querySelector('.picture__comments').textContent = comments.length;
+  photo.querySelector('.picture__likes').textContent = likes;
+  photo.dataset.photoId = id;
 
-  return picture;
+  return photo;
 };
 
 //Генерируем миниатюры
-const renderPictures = (pictures) => {
+const renderPhotos = (pictures, container) => {
   const fragment = document.createDocumentFragment();
-
   pictures.forEach((picture) => {
-    const photo = createPicture(picture);
+    const photo = createPhoto(picture);
     fragment.append(photo);
   });
 
   //заполняем двадцатипятью элементами фрагмент
   container.append(fragment);
+  container.addEventListener('click', renderPhotos);
 };
 
-export { renderPictures };
+export { renderPhotos };

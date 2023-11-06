@@ -1,5 +1,4 @@
 import { createProfile } from './data.js';
-import { renderPictures } from './pictures.js';
+import { renderGallery } from './gallery.js';
 
-const pictures = createProfile();
-renderPictures(pictures);
+renderGallery(createProfile());
