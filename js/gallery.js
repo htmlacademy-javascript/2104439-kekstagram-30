@@ -1,4 +1,4 @@
-import { renderPhotos } from './photos.js';
+import { renderThumbnails } from './thumbnail.js';
 import { showPicture } from './picture.js';
 
 // Задача: Реализовать сценарий просмотра фотографий в полноразмерном режиме.
@@ -9,10 +9,10 @@ const renderGallery = (pictures) => {
   //прописываем события клика
   container.addEventListener('click', (evt) => {
     //проверка есть ли у элемента дата атрибут
-    const photo = evt.target.closest('[data-photo-id]');
+    const thumbnail = evt.target.closest('[data-thumbnail-id]');
 
     //выходим из функции, если null
-    if (!photo) {
+    if (!thumbnail) {
       return;
     }
 
@@ -20,16 +20,16 @@ const renderGallery = (pictures) => {
     evt.preventDefault();
 
     //получаем значение дата атрибута + преобразовываем в число
-    const photoId = +photo.dataset.photoId;
+    const thumbnailId = +thumbnail.dataset.thumbnailId;
     //ищем выбранный элемент из массива (колбэк) и сравниваем id
-    const pictureData = pictures.find(({ id }) => id === photoId);
+    const pictureData = pictures.find(({ id }) => id === thumbnailId);
 
     showPicture(pictureData);
 
 
   });
 
-  renderPhotos(pictures, container);
+  renderThumbnails(pictures, container);
 };
 
 export { renderGallery };
