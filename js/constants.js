@@ -46,4 +46,6 @@ const DESCRIPTIONS = [
   'Фотка на 15 айфон'
 ];
 
-export { SIMILAR_IMAGE_COUNT, LikesCount, CommentsCounts, AvatarCount, NAMES, COMMENTS, DESCRIPTIONS };
+const COMMENTS_COUNTS_SHOW = 5;
+
+export { SIMILAR_IMAGE_COUNT, LikesCount, CommentsCounts, AvatarCount, NAMES, COMMENTS, DESCRIPTIONS, COMMENTS_COUNTS_SHOW };
