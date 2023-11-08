@@ -48,4 +48,12 @@ const DESCRIPTIONS = [
 
 const COMMENTS_COUNTS_SHOW = 5;
 
-export { SIMILAR_IMAGE_COUNT, LikesCount, CommentsCounts, AvatarCount, NAMES, COMMENTS, DESCRIPTIONS, COMMENTS_COUNTS_SHOW };
+const MAX_HASHTAG_COUNT = 5;
+const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
+const ErrorText = {
+  INVALID_COUNT: `Максимум ${MAX_HASHTAG_COUNT} хэштэгов`,
+  NOT_UNIQUE: 'Хэштеги повторяются',
+  INVALID_PATTERN: 'Неправильный хэштэг',
+};
+
+export { SIMILAR_IMAGE_COUNT, LikesCount, CommentsCounts, AvatarCount, NAMES, COMMENTS, DESCRIPTIONS, COMMENTS_COUNTS_SHOW, MAX_HASHTAG_COUNT, VALID_SYMBOLS, ErrorText };
