@@ -121,4 +121,9 @@ const effectToSliderOptions = {
   },
 };
 
-export { SIMILAR_IMAGE_COUNT, LikesCount, CommentsCounts, AvatarCount, NAMES, COMMENTS, DESCRIPTIONS, COMMENTS_COUNTS_SHOW, MAX_HASHTAG_COUNT, VALID_SYMBOLS, ErrorText, Effect, effectToFilter, effectToSliderOptions };
+const SCALE_STEP = 25;
+const MIN_SCALE = 25;
+const MAX_SCALE = 100;
+const DEFAULT_SCALE = 100;
+
+export { SIMILAR_IMAGE_COUNT, LikesCount, CommentsCounts, AvatarCount, NAMES, COMMENTS, DESCRIPTIONS, COMMENTS_COUNTS_SHOW, MAX_HASHTAG_COUNT, VALID_SYMBOLS, ErrorText, Effect, effectToFilter, effectToSliderOptions, SCALE_STEP, MIN_SCALE, MAX_SCALE, DEFAULT_SCALE };

@@ -3,6 +3,7 @@ import {
   init as initEffect,
   reset as resetEffects
 } from './effects-upload-form.js';
+import { resetScale } from './scale-upload-photo.js';
 
 const body = document.querySelector('body');
 const uploadForm = document.querySelector('.img-upload__form');
@@ -30,6 +31,7 @@ const showUploadForm = () => {
 const closeUploadForm = () => {
   uploadForm.reset(); //сбрасываем все значения формы
   resetEffects();
+  resetScale();
   pristine.reset(); //отвязываем пристин, отвязка событий
   uploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
