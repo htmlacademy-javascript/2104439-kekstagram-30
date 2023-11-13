@@ -1,18 +1,22 @@
 import { MAX_HASHTAG_COUNT, VALID_SYMBOLS, ErrorText } from './constants.js';
+import {
+  init as initEffect,
+  reset as resetEffects
+} from './effects-upload-form.js';
 
 const body = document.querySelector('body');
 const uploadForm = document.querySelector('.img-upload__form');
-const uploadOverlay = document.querySelector('.img-upload__overlay');
-const cancelForm = document.querySelector('#upload-cancel');
-const fileInput = document.querySelector('#upload-file');
-const hashtagInput = document.querySelector('.text__hashtags');
-const commentInput = document.querySelector('.text__description');
+const uploadOverlay = uploadForm.querySelector('.img-upload__overlay');
+const cancelForm = uploadForm.querySelector('#upload-cancel');
+const fileInput = uploadForm.querySelector('#upload-file');
+const hashtagInput = uploadForm.querySelector('.text__hashtags');
+const commentInput = uploadForm.querySelector('.text__description');
 
 //Подключаем библиотеку
-const pristine = new Pristine(uploadForm, {
+const pristine = new window.Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
-  errorTextClass: 'img-upload__field-wrapper__error',
+  errorTextClass: 'img-upload__field-wrapper--error',
 });
 
 //Открываем окно с формой после загрузки изображения
@@ -25,6 +29,7 @@ const showUploadForm = () => {
 //Закрываем окно загрузки
 const closeUploadForm = () => {
   uploadForm.reset(); //сбрасываем все значения формы
+  resetEffects();
   pristine.reset(); //отвязываем пристин, отвязка событий
   uploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -105,6 +110,7 @@ const initUploadPhoto = () => {
   fileInput.addEventListener('change', onFileInputChange);
   cancelForm.addEventListener('click', onCancelButtonClick);
   uploadForm.addEventListener('submit', onFormSubmit);
+  initEffect();
 };
 
 export { initUploadPhoto };
