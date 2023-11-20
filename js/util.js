@@ -1,13 +1,21 @@
-//Случайное число
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
+import { REMOVE_MESSAGE_TIMEOUT } from './constants.js';
+
+//Добавляем сообщение об ошибке загрузке данных с сервера
+const errorMessageTemplate = document
+  .querySelector('#data-error')
+  .content
+  .querySelector('.data-error');
+
+const showErrorMessage = () => {
+  //клонируем элемент
+  const errorElement = errorMessageTemplate.cloneNode(true);
+  //добавляем в документ
+  document.body.append(errorElement);
+
+  //автоматическое удаление сообщения об ошибке
+  setTimeout(() => {
+    errorElement.remove();
+  }, REMOVE_MESSAGE_TIMEOUT);
 };
 
-//Случайный элемент массива
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-
-
-export { getRandomInteger, getRandomArrayElement };
+export { showErrorMessage };
