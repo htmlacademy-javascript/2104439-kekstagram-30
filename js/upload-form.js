@@ -75,7 +75,7 @@ const isErrorMessageExist = () => Boolean(document.querySelector('.error'));
 
 //Закрываем окно
 function onDocumentKeydown(evt) {
-  if (evt.key === 'Escape' && !isTextFieldFocused() && isErrorMessageExist()) {
+  if (evt.key === 'Escape' && !isTextFieldFocused() && !isErrorMessageExist()) {
     evt.preventDefault();
     closeUploadForm();
   }
