@@ -1,4 +1,4 @@
-import { MAX_HASHTAG_COUNT, VALID_SYMBOLS, ErrorText, SubmitButtonCaption } from './constants.js';
+import { MAX_HASHTAG_COUNT, VALID_SYMBOLS, ErrorText, SubmitButtonCaption, FILE_TYPES } from './constants.js';
 import {
   init as initEffect,
   reset as resetEffects
@@ -15,6 +15,8 @@ const fileInput = uploadForm.querySelector('#upload-file');
 const hashtagInput = uploadForm.querySelector('.text__hashtags');
 const commentInput = uploadForm.querySelector('.text__description');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
+const photoPreview = uploadForm.querySelector('.img-upload__preview img');
+const effectsPreviews = uploadForm.querySelectorAll('.effects__preview');
 
 const toggleSubmitButton = (isDisabled) => {
   submitButton.disabled = isDisabled;
@@ -62,6 +64,12 @@ const normalizeTags = (tagString) => tagString
 //Задаем валидные символы хэштэгам
 const hasValidTags = (value) => normalizeTags(value).every((tag) => VALID_SYMBOLS.test(tag));
 
+//Проверяем имя файла (расширение)
+const isValidType = (file) => {
+  const fileName = file.name.toLowerCase();
+  return FILE_TYPES.some((it) => fileName.endsWith(it));
+};
+
 //Ограничиваем кол-во тегов числом 5
 const hasValidCount = (value) => normalizeTags(value).length <= MAX_HASHTAG_COUNT;
 
@@ -85,7 +93,16 @@ const onCancelButtonClick = () => {
   closeUploadForm();
 };
 
+//нажать кнопку загрузить изображение
 const onFileInputChange = () => {
+  const file = fileInput.files[0];
+
+  if (file && isValidType(file)) {
+    photoPreview.src = URL.createObjectURL(file);
+    effectsPreviews.forEach((preview) => {
+      preview.style.backgroundImage = `url('${photoPreview.src}')`;
+    });
+  }
   showUploadForm();
 };
 
