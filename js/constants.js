@@ -2,6 +2,7 @@ const COMMENTS_COUNTS_SHOW = 5;
 
 const MAX_HASHTAG_COUNT = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const ErrorText = {
   INVALID_COUNT: `Максимум ${MAX_HASHTAG_COUNT} хэштэгов`,
   NOT_UNIQUE: 'Хэштеги повторяются',
@@ -101,4 +102,12 @@ const ErrorDates = {
   [HttpMethod.POST]: 'Не удалось отправить данные',
 };
 
-export { COMMENTS_COUNTS_SHOW, MAX_HASHTAG_COUNT, VALID_SYMBOLS, ErrorText, SubmitButtonCaption, Effect, effectToFilter, effectToSliderOptions, SCALE_STEP, MIN_SCALE, MAX_SCALE, DEFAULT_SCALE, REMOVE_MESSAGE_TIMEOUT, SERVER_URL, ServerRoute, HttpMethod, ErrorDates };
+const FilterEnum = {
+  DEFAULT: 'default',
+  RANDOM: 'random',
+  DISCUSSED: 'discussed'
+};
+
+const MAX_RANDOM_FILTER = 10;
+
+export { COMMENTS_COUNTS_SHOW, MAX_HASHTAG_COUNT, VALID_SYMBOLS, ErrorText, SubmitButtonCaption, Effect, effectToFilter, effectToSliderOptions, SCALE_STEP, MIN_SCALE, MAX_SCALE, DEFAULT_SCALE, REMOVE_MESSAGE_TIMEOUT, SERVER_URL, ServerRoute, HttpMethod, ErrorDates, FilterEnum, MAX_RANDOM_FILTER, FILE_TYPES };
