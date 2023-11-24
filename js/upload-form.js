@@ -4,7 +4,7 @@ import {
   reset as resetEffects
 } from './effects-upload-form.js';
 import { resetScale } from './scale-upload-photo.js';
-import { sendPicture } from './api.js';
+import { sendData } from './api.js';
 import { showSuccessMessage, showErrorMessage } from './message.js';
 
 const body = document.querySelector('body');
@@ -113,7 +113,7 @@ const sendForm = async (formElement) => {
 
   try {
     toggleSubmitButton(true);
-    await sendPicture(new FormData(formElement));
+    await sendData(new FormData(formElement));
     closeUploadForm();
     showSuccessMessage();
   } catch {
