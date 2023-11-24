@@ -1,20 +1,18 @@
-import { FilterEnum, MAX_RANDOM_FILTER } from './constants';
+import { FilterGroup, MAX_RANDOM_FILTER } from './constants';
 import { renderThumbnails } from './thumbnail.js';
 import { debounce } from './util.js';
 
 const filtersElement = document.querySelector('.img-filters');
-const filterForm = document.querySelector('.img-filters__form');
-const defaultButton = filterForm.querySelector('#filter-default');
-const randomButton = filterForm.querySelector('#filter-random');
-const discussedButton = filterForm.querySelector('#filter-discussed');
+const filterFormElement = document.querySelector('.img-filters__form');
+const filterButtons = filterFormElement.querySelectorAll('button');
 const pictureContainerElement = document.querySelector('.pictures');
 
 const getRandomIndex = (min, max) => Math.floor(Math.random() * (max - min));
 
 const filterHandlers = {
-  [FilterEnum.DEFAULT]: (data) => data,
+  [FilterGroup.DEFAULT]: (data) => data,
 
-  [FilterEnum.RANDOM]: (data) => {
+  [FilterGroup.RANDOM]: (data) => {
     const randomIndexList = [];
     const max = Math.min(MAX_RANDOM_FILTER, data.length);
     while (randomIndexList.length < max) {
@@ -26,20 +24,19 @@ const filterHandlers = {
     return randomIndexList.map((index) => data[index]);
   },
 
-  [FilterEnum.DISCUSSED]: (data) => [...data].sort((a, b) => b.comments.length - a.comments.length)
+  [FilterGroup.DISCUSSED]: (data) => [...data].sort((a, b) => b.comments.length - a.comments.length)
 };
 
-let currentFilter = FilterEnum.DEFAULT;
+let currentFilter = FilterGroup.DEFAULT;
 
-const repaint = (event, filter, data) => {
+//функция отрисовки отфильтрованных данных
+
+const repaint = (filter, data) => {
   if (currentFilter !== filter) {
     const filteredData = filterHandlers[filter](data);
     const pictures = document.querySelectorAll('.picture');
     pictures.forEach((item) => item.remove());
     renderThumbnails(filteredData, pictureContainerElement);
-    const currentActiveElement = filterForm.querySelector('.img-filters__button--active');
-    currentActiveElement.classList.remove('img-filters__button--active');
-    event.target.classList.add('img-filters__button--active');
     currentFilter = filter;
   }
 };
@@ -48,14 +45,13 @@ const debouncedRepaint = debounce(repaint);
 
 const initFilter = (data) => {
   filtersElement.classList.remove('img-filters--inactive');
-  defaultButton.addEventListener('click', (event) => {
-    debouncedRepaint(event, FilterEnum.DEFAULT, data);
-  });
-  randomButton.addEventListener('click', (event) => {
-    debouncedRepaint(event, FilterEnum.RANDOM, data);
-  });
-  discussedButton.addEventListener('click', (event) => {
-    debouncedRepaint(event, FilterEnum.DISCUSSED, data);
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      const currentActiveElement = filterFormElement.querySelector('.img-filters__button--active');
+      currentActiveElement.classList.remove('img-filters__button--active');
+      event.target.classList.add('img-filters__button--active');
+      debouncedRepaint(event.target.id, data);
+    });
   });
 };
 

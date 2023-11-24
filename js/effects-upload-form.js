@@ -17,7 +17,7 @@ const isDefault = () => chosenEffect === Effect.DEFAULT;
 //Подставляем стиль в наш элемент (из ключей)
 const setImageStyle = () => {
   if (isDefault()) {
-    previewElement.computedStyleMap.filter = null;
+    previewElement.style.filter = null;
     return;
   }
 

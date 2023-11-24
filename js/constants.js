@@ -97,17 +97,17 @@ const HttpMethod = {
   POST: 'POST',
 };
 
-const ErrorDates = {
+const ErrorData = {
   [HttpMethod.GET]: 'Не удалось загрузить данные',
   [HttpMethod.POST]: 'Не удалось отправить данные',
 };
 
-const FilterEnum = {
-  DEFAULT: 'default',
-  RANDOM: 'random',
-  DISCUSSED: 'discussed'
+const FilterGroup = {
+  DEFAULT: 'filter-default',
+  RANDOM: 'filter-random',
+  DISCUSSED: 'filter-discussed'
 };
 
 const MAX_RANDOM_FILTER = 10;
 
-export { COMMENTS_COUNTS_SHOW, MAX_HASHTAG_COUNT, VALID_SYMBOLS, ErrorText, SubmitButtonCaption, Effect, effectToFilter, effectToSliderOptions, SCALE_STEP, MIN_SCALE, MAX_SCALE, DEFAULT_SCALE, REMOVE_MESSAGE_TIMEOUT, SERVER_URL, ServerRoute, HttpMethod, ErrorDates, FilterEnum, MAX_RANDOM_FILTER, FILE_TYPES };
+export { COMMENTS_COUNTS_SHOW, MAX_HASHTAG_COUNT, VALID_SYMBOLS, ErrorText, SubmitButtonCaption, Effect, effectToFilter, effectToSliderOptions, SCALE_STEP, MIN_SCALE, MAX_SCALE, DEFAULT_SCALE, REMOVE_MESSAGE_TIMEOUT, SERVER_URL, ServerRoute, HttpMethod, ErrorData, FilterGroup, MAX_RANDOM_FILTER, FILE_TYPES };
