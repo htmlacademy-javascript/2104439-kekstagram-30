@@ -13,15 +13,15 @@ const filterHandlers = {
   [FilterGroup.DEFAULT]: (data) => data,
 
   [FilterGroup.RANDOM]: (data) => {
-    const randomIndexList = [];
+    const randomIndexLists = [];
     const max = Math.min(MAX_RANDOM_FILTER, data.length);
-    while (randomIndexList.length < max) {
+    while (randomIndexLists.length < max) {
       const index = getRandomIndex(0, data.length);
-      if (!randomIndexList.includes(index)) {
-        randomIndexList.push(index);
+      if (!randomIndexLists.includes(index)) {
+        randomIndexLists.push(index);
       }
     }
-    return randomIndexList.map((index) => data[index]);
+    return randomIndexLists.map((index) => data[index]);
   },
 
   [FilterGroup.DISCUSSED]: (data) => [...data].sort((a, b) => b.comments.length - a.comments.length)
